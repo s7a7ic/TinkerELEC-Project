@@ -14,7 +14,7 @@ More info soon...
 - Enabled Bluetooth
 - Alternative Wireless Driver
 - NesPi Case+ support
-  - "soft" shutdown / reboot with front panel buttons
+  - "soft" shutdown / reboot / suspend and wake from suspend with front panel buttons
   - PowerLED control via `/sys/class/leds/led-case` interface
 - Disable internal LEDs with [autostart.sh](scripts/autostart.sh) script
 
