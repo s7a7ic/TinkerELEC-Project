@@ -6,11 +6,13 @@ Give them executable permission: `chmod +x /storage/.config/scripts/*.sh`
 
 ## Setup scripts
 
+Copy scripts folder to system:
 ```
-# copy scripts folder
 scp -r ../scripts root@tinkerelec:~/.config
+```
 
-# ssh to tinkerelec and link scripts (for libreelec compatibility)
+For libreelec compatibility, ssh into tinkerelec and link scripts:
+```
 ln -s ~/.config/scripts/autostart.sh ~/.config/autostart.sh
 ln -s ~/.config/scripts/autostop.sh ~/.config/autostop.sh
 ln -s ~/.config/scripts/shutdown.sh ~/.config/shutdown.sh
