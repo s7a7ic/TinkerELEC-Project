@@ -1,6 +1,7 @@
 # TinkerELEC Project
 
-This is the Documentation of my Project to make the **ASUS Tinker Board S** (Rockchip RK3288) work better running [Kodi](https://kodi.tv) and generally with newer Linux Kernels (>= 6.5). The [Sourcecode](https://github.com/s7a7ic/TinkerELEC) is based on [LibreELEC.tv](https://github.com/LibreELEC/LibreELEC.tv) with patches and changes created by myself or found on the internet.
+This is the Documentation of my Project to make a stable ELEC operating system for the **ASUS Tinker Board S** (Rockchip RK3288). The goal is to have the system run better with [Kodi 21.2 Omega](https://kodi.tv) and generally newer Linux Kernels (>= 6.5).
+The [Sourcecode](https://github.com/s7a7ic/TinkerELEC) is based on [LibreELEC.tv](https://github.com/LibreELEC/LibreELEC.tv) with patches and changes created by myself or found on the internet.
 
 In this repository you can find additional scripts and configurations to use after the installation of TinkerELEC.
 
