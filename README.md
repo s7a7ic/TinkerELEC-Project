@@ -10,16 +10,11 @@ More info soon...
 
 ## Features
 
-* Includes package updates from [LibreELEC](https://github.com/LibreELEC/LibreELEC.tv) master branch
-  * Better compatibility, bug- and security fixes
-  * Downgrade of ffmpeg to 6.0.1 (now 6.1.2) due to Kodi 21 hard depency
-* Enabled Bluetooth
-* Alternative Wireless Driver for RTL8723BS
-* Enabled Watchdog
-* Support for NesPi Case+ Buttons
-  * Power: wake and "soft shutdown" when delatching
-  * Reset: suspend, wake and reboot on longpress
-  * PowerLED control via `/sys/class/leds/led-case` interface
+**Support for NesPi Case+ Buttons**
+- Power Button: wake and "soft shutdown" when delatching
+- Reset Button: suspend, wake and reboot (on longpress)
+- Power LED control via /sys/class/leds/led-case interface
+
 * Disable internal LEDs via [autostart](scripts/autostart.sh) script
 
 ## Notes
