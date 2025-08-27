@@ -35,6 +35,4 @@ More info soon...
 
 ![NesPi Case+ 1 open](pictures/nespi_case_1_open.jpg)
 
-## Footnotes
-
-[^elec]: Embedded Linux Entertainment Center
+[^elec]: ELEC: **E**mbedded **L**inux **E**ntertainment **C**enter
