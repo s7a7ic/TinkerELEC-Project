@@ -1,0 +1,3 @@
+# /storage/.profile example
+
+export CURL_URL="https://my.curl-url.net"
