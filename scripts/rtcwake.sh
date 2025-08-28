@@ -12,7 +12,7 @@ curlwithcode() {
   return $code
 }
 
-curlwithcode http://10.0.0.10:1880/wake_time
+curlwithcode $CURL_URL/wake_time
 
 # could not get wake_time, exit with 1
 [ $body = "null" ] && exit 1

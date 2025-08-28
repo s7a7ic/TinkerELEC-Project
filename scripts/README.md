@@ -18,6 +18,10 @@ ln -s ~/.config/scripts/autostop.sh ~/.config/autostop.sh
 ln -s ~/.config/scripts/shutdown.sh ~/.config/shutdown.sh
 ```
 
+## Set Environment Variables
+
+add your env settings in /storage/.profile and reboot
+
 ## Bluetooth disconnect
 
 [bt-disconnect](bt-disconnect.sh) is disconnecting currently connected Bluetooth Devices. It is called from the on_suspend script.
