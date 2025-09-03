@@ -5,3 +5,6 @@ export CURL_URL="https://my.curl-url.net"
 
 # disable ASH history file on storage
 export HISTFILE=/dev/null
+
+# always wake system up at this time
+export WAKE_AT="08:00"

@@ -2,14 +2,14 @@
 
 These scripts should be placed under `/storage/.config/scripts`
 
-Give them executable permission: `chmod +x /storage/.config/scripts/*.sh`
-
 ## Setup scripts
 
 Copy scripts folder to system:
 ```
 scp -r ../scripts root@tinkerelec:~/.config
 ```
+
+Give them executable permission: `chmod +x /storage/.config/scripts/*.sh`
 
 For libreelec compatibility, ssh into tinkerelec and link scripts:
 ```
@@ -20,23 +20,16 @@ ln -s ~/.config/scripts/shutdown.sh ~/.config/shutdown.sh
 
 ## Set Environment Variables
 
-add your env settings in /storage/.profile and reboot
-
-## Bluetooth disconnect
-
-[bt-disconnect](bt-disconnect.sh) is disconnecting currently connected Bluetooth Devices. It is called from the on_suspend script.
+add your env settings in /storage/.profile and reboot (see [profile.example](../profile.example))
 
 ## Prevent Idle
 
 [prevent_idle](prevent_idle.sh) prevents kodi to run the shutdown function when a network connection is established (ssh, nfs or smb) and between specified times.
 
-## RTC Wakealarm
-
-[rtcwake](rtcwake.sh) configures /sys/class/rtc/rtc0/wakealarm to wake the system on a specified time (timezone aware). It is called from the on_suspend script.
-
 ## Suspend / Resume Scripts
 
 [on_suspend](on_suspend.sh) runs before system goes into suspend.
+- includes sets RTC Wakealarm and disconnects Bluetooth devices
 
 [on_resume](on_resume.sh) runs after system wakes from suspend.
 

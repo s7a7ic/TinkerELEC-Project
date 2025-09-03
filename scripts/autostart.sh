@@ -1,5 +1,7 @@
 #!/bin/sh
 
+. $HOME/.profile # load user defined environment variables
+
 # disable internal LEDs
 echo none > /sys/class/leds/led-0/trigger
 echo none > /sys/class/leds/led-1/trigger
