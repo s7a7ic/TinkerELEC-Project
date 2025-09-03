@@ -1,3 +1,7 @@
-# /storage/.profile example
+# TinkerELEC /storage/.profile example
 
+export SCRIPTS_PATH="/storage/.config/scripts"
 export CURL_URL="https://my.curl-url.net"
+
+# disable ASH history file on storage
+export HISTFILE=/dev/null

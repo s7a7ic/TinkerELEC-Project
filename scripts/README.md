@@ -40,4 +40,4 @@ add your env settings in /storage/.profile and reboot
 
 [on_resume](on_resume.sh) runs after system wakes from suspend.
 
-They are run by [/usr/lib/systemd/system-sleep.serial/20-custom-sleep.sh](https://github.com/s7a7ic/TinkerELEC/blob/te-kodi21/packages/mediacenter/kodi/sleep.d.serial/20-custom-sleep.sh)
+They are run by [/usr/lib/systemd/system-sleep.serial/20-custom-sleep.sh](https://github.com/s7a7ic/TinkerELEC/blob/master/packages/mediacenter/kodi/sleep.d.serial/20-custom-sleep.sh)

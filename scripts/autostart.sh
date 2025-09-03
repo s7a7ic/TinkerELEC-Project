@@ -11,8 +11,8 @@ echo none > /sys/class/leds/led-2/trigger
   while [ $KODI_RUNNING != 1 ]; do
     KODI_RUNNING=`ps -A | grep kodi.bin | grep -v grep | wc -l`
     if [ $KODI_RUNNING == 1 ]; then
-      sleep 5
-      # fix pipewire low volume (kodi needs to be running)
+      sleep 10
+      # pipewire low volume workarround (kodi needs to be running)
       wpctl set-volume @DEFAULT_AUDIO_SINK@ 100%
       break
     fi
@@ -20,8 +20,9 @@ echo none > /sys/class/leds/led-2/trigger
   done
 )&
 
-if [ -f $HOME/.config/scripts/prevent_idle.sh ]; then
+# run prevent_idle in background
+if [ -f ${SCRIPTS_PATH:-.}/prevent_idle.sh ]; then
   (
-  sh $HOME/.config/scripts/prevent_idle.sh
+  sh ${SCRIPTS_PATH:-.}/prevent_idle.sh
   )&
 fi
