@@ -1,40 +1,24 @@
 #!/bin/sh
 
-curlwithcode() {
-  local code=0
-  local tmpfile; tmpfile=$(mktemp /tmp/curl.XXXXXX)
-  body="null"
+. ${SCRIPTS_PATH:-.}/functions.sh
 
-  status_code=$(curl --connect-timeout 3 --retry 0 -s -w "%{http_code}" -o >(cat >"$tmpfile") "$1") || code="$?"
-  [ $status_code = 200 ] && body="$(cat "$tmpfile")"
-  rm "$tmpfile"
-
-  return $code
-}
-
-curlwithcode $CURL_URL/wake_time
-
-# could not get wake_time, exit with 1
-[ $body = "null" ] && exit 1
-
-# got off, disable rtc wakealarm
-if [ $body = "off" ]; then
-  echo 0 > /sys/class/rtc/rtc0/wakealarm
-  logger -t rtcwake.sh "rtc: unset wakealarm"
-  exit 0
-fi
-
-# set rtc wakealarm to wake from suspend
-#WAKE_AT="08:00"
-WAKE_AT="$body"
+WAKE_AT="08:00" # always wake system up at this time
 
 if [ -f /sys/class/rtc/rtc0/wakealarm ]; then
-  CURRENT_TIME=$(date +%s)
-  WAKE_TIME=$(date +%s -d "$WAKE_AT")
+  CURRENT_TIME=$(date +%s) # current epoch time
+  WAKE_TIME=$(date +%s -d "$WAKE_AT") # convert to epoch time
 
   # update wake time to next day when already passed
   if [ $CURRENT_TIME -gt $WAKE_TIME ]; then
     WAKE_TIME=$(($WAKE_TIME + 24 * 60 * 60))
+  fi
+
+  # get home-assistant next wake alert time
+  curlwithcode ${CURL_URL}/wake_time
+  if [ "$body" != "null" ] && [ "$body" != "off" ]; then
+    body=$(($body - 120)) # minus two minutes to give enough time to fully start up
+    # if wake time is before default wake, then use it
+    [ "$body" -lt "$WAKE_TIME" ] && WAKE_TIME="$body"
   fi
 
   # get configured wake time from system
