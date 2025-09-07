@@ -2,7 +2,9 @@
 <buttonmap>
     <!-- dinput mode -->
     <device name="8BitDo N30 Pro 2" provider="linux" buttoncount="16" axiscount="8">
-        <configuration />
+        <configuration>
+            <appearance id="game.controller.snes" />
+        </configuration>
         <controller id="game.controller.default">
             <feature name="left" axis="-6" />
             <feature name="right" axis="+6" />

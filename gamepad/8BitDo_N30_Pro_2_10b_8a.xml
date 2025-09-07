@@ -3,6 +3,7 @@
     <!-- xinput mode -->
     <device name="8BitDo N30 Pro 2" provider="linux" buttoncount="10" axiscount="8">
         <configuration>
+            <appearance id="game.controller.snes" />
             <axis index="2" center="-1" range="2" />
             <axis index="5" center="-1" range="2" />
         </configuration>
