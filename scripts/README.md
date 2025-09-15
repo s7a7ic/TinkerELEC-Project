@@ -29,8 +29,12 @@ add your env settings in /storage/.profile and reboot (see [profile.example](../
 ## Suspend / Resume Scripts
 
 [on_suspend](on_suspend.sh) runs before system goes into suspend.
-- includes sets RTC Wakealarm and disconnects Bluetooth devices
+- sets RTC Wakealarm and disconnects Bluetooth devices
 
 [on_resume](on_resume.sh) runs after system wakes from suspend.
 
 They are run by [/usr/lib/systemd/system-sleep.serial/20-custom-sleep.sh](https://github.com/s7a7ic/TinkerELEC/blob/master/packages/mediacenter/kodi/sleep.d.serial/20-custom-sleep.sh)
+
+## Handle IR
+
+The [handle_ir](handle_ir.sh) script is run by [lircrc](../ir-receiver/lircrc) when the defined "special" keys are pressed on the TV-Remote.
