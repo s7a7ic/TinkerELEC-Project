@@ -1,4 +1,5 @@
 #!/bin/sh
+# The autostart.sh script runs on system boot
 
 . $HOME/.profile # load user defined environment variables
 . ${SCRIPTS_PATH:-.}/functions.sh

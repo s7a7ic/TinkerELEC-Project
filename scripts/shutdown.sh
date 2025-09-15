@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Unlike the autostart.sh script the network stack will not be up when the script runs
+# Unlike the autostop.sh script the network stack will not be up when the script runs
 # and the shutdown.sh script should follow the following template to ensure commands are
 # executed during the correct event, i.e. you can run different commands for a reboot event
 # to halt event, or put commands outside the case ... esac as a catch-all.
