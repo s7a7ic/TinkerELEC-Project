@@ -2,9 +2,13 @@
 
 export SCRIPTS_PATH="/storage/.config/scripts"
 export CURL_URL="https://my.curl-url.net"
+export CURL_OPT="--connect-timeout 3 --retry 0 --no-keepalive --silent"
 
 # disable ASH history file on storage
 export HISTFILE=/dev/null
 
 # always wake system up at this time
 export WAKE_AT="08:00"
+
+# host to ping while waiting for network
+export PING_HOST="192.168.0.1"

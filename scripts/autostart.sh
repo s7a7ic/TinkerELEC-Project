@@ -1,6 +1,7 @@
 #!/bin/sh
 
 . $HOME/.profile # load user defined environment variables
+. ${SCRIPTS_PATH:-.}/functions.sh
 
 # disable internal LEDs
 echo none > /sys/class/leds/led-0/trigger
@@ -28,3 +29,11 @@ if [ -f ${SCRIPTS_PATH:-.}/prevent_idle.sh ]; then
   sh ${SCRIPTS_PATH:-.}/prevent_idle.sh
   )&
 fi
+
+# run irexec for scripts via ir-remote
+[ -f /storage/.config/lircrc ] && irexec -d /storage/.config/lircrc
+
+wait_for_network
+
+# turn tv on
+curl ${CURL_OPT} -d state=on ${CURL_URL}/tv

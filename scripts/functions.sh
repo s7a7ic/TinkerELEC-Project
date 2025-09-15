@@ -16,10 +16,10 @@ curlwithcode() {
 # disconnect all bluetooth devices
 bt_disconnect() {
   # get all known devices
-  bt_devices=$(bluetoothctl devices | awk '{print $2}')
+  local bt_devices=$(bluetoothctl devices | awk '{print $2}')
 
   for device_address in $bt_devices; do
-    connection_status=$(bluetoothctl info $device_address | grep "Connected:" | awk '{print $2}')
+    local connection_status=$(bluetoothctl info $device_address | grep "Connected:" | awk '{print $2}')
 
     if [ "$connection_status" == "yes" ]; then
       logger -t bt-disconnect.sh "Disconnecting from $device_address..."
@@ -28,5 +28,18 @@ bt_disconnect() {
       disconnect $device_address
 EOF
     fi
+  done
+}
+
+# wait for network, exit script when network is not reachable after max_tries
+wait_for_network() {
+  local max_tries=20
+  local n=0
+
+  while ! ping -W 1 -c 1 ${PING_HOST} > /dev/null 2>&1;
+  do
+    n=$(($n + 1))
+    [ $n = $max_tries ] && exit 1
+    sleep 1
   done
 }
