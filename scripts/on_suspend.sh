@@ -1,9 +1,15 @@
 #!/bin/sh
-
 # The on_suspend.sh script runs before system is going into suspend
 
 . $HOME/.profile # load user defined environment variables
 . ${SCRIPTS_PATH:-.}/functions.sh
+
+# BUG: stop kodi playback to prevent playback on resume (does not work, patched out RestorePlayerState() in kodi)
+#kodi-send --action=stop
+
+# save wakeup count
+#cat /sys/class/wakeup/wakeup1/active_count > /tmp/wakeup_rtc_count # rtc
+cat /sys/class/wakeup/wakeup6/active_count > /tmp/wakeup_btn_count # gpio button
 
 WAKE_AT=${WAKE_AT:-"08:00"} # always wake system up at this time
 
@@ -37,3 +43,6 @@ fi
 
 # disconnect bluetooth devices
 bt_disconnect
+
+# turn tv off
+curl ${CURL_OPT} -d state=off ${CURL_URL}/tv
