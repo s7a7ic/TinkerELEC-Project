@@ -1,7 +1,7 @@
 begin
   prog = irexec
   button = KEY_F1
-  config = kodi-send -a "ActivateWindow(Home)"
+  config = kodi-send -a "FullScreen"
 end
 
 begin
