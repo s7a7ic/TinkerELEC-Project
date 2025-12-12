@@ -1,0 +1,15 @@
+<!-- Overwrite of KEY_TV -->
+<keymap>
+  <global>
+    <joystick profile="game.controller.default">
+      <start>ActivateWindow(PlayerControls)</start>
+      <start holdtime="500">noop</start>
+    </joystick>
+  </global>
+  <FullscreenVideo>
+    <joystick profile="game.controller.default">
+      <start>Info</start>
+      <start holdtime="500">noop</start>
+    </joystick>
+  </FullscreenVideo>
+</keymap>

@@ -18,31 +18,7 @@ I'm using the dinput mode.
 
 To prevent Kodi opening "Info" or "PlayerControls" when you want to turn the gamepad off but still keep the default actions on a short press, the joystick.xml needs to be modified.
 
-1. Copy system joystick.xml to userdata
-
-`cp /usr/share/kodi/system/keymaps/joystick.xml /storage/.kodi/userdata/keymaps/`
-
-2. Edit the file
-
-`nano /storage/.kodi/userdata/keymaps/joystick.xml`
-
-3. Add `<start holdtime="500">noop</start>`
-
-under `<global>`
-```
-...
-<start>ActivateWindow(PlayerControls)</start>
-<start holdtime="500">noop</start>
-...
-```
-
-and under `<FullscreenVideo>`
-```
-...
-<start>Info</start>
-<start holdtime="500">noop</start>
-...
-```
+Create a [custom mapping](joystick_custom.xml) in `/storage/.kodi/userdata/keymaps/` and restart kodi
 
 ## Kodi Buttonmap / Keymap
 

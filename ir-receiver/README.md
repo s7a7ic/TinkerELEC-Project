@@ -35,6 +35,14 @@ The default "GPIO IR Receiver" kernel driver name is `gpio_ir_recv`.
 
 The file I use: [rc_maps.cfg](rc_maps.cfg)
 
+## Overwrite kodi keymapping
+
+Create a [custom mapping](remote_custom.xml) in `/storage/.kodi/userdata/keymaps/` and restart kodi
+
 ## List of Keycodes
 
 - https://pickpj.github.io/keycodes.html
+
+##### todo
+
+keymap xml modifier for key green -> KEY_TAB longpress (ActivateWindow(Home))
