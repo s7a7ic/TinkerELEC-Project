@@ -33,7 +33,7 @@ if [ -f /sys/class/rtc/rtc0/wakealarm ]; then
   # get configured wake time from system
   WAKE_ALARM=$(cat /sys/class/rtc/rtc0/wakealarm)
 
-  # update wakealarm if empty or different
+  # update wakealarm if empty or different (check with `cat /proc/driver/rtc`)
   if [ -z $WAKE_ALARM ] || [ 1$WAKE_ALARM != 1$WAKE_TIME ]; then
     echo 0 > /sys/class/rtc/rtc0/wakealarm
     echo $WAKE_TIME > /sys/class/rtc/rtc0/wakealarm
@@ -45,4 +45,4 @@ fi
 bt_disconnect
 
 # turn tv off
-curl ${CURL_OPT} -d state=off ${CURL_URL}/tv
+curl ${CURL_OPT} -d 'state=off' ${CURL_URL}/tv
