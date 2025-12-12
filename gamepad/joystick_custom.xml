@@ -1,4 +1,4 @@
-<!-- Overwrite of KEY_TV -->
+<!-- prevent action on START button on longpress, when turning gamepad off -->
 <keymap>
   <global>
     <joystick profile="game.controller.default">
