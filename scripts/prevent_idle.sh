@@ -27,9 +27,9 @@ while true; do
     IDLE_SHUTDOWN_ALLOWED=1 # default state
 
     if [ $ENABLE_NET -eq 1 ]; then
-      SSH_ACTIVE=`netstat -tnpa | grep 'tcp.*:22.*ESTABLISHED.*' | wc -l`
-      NFS_ACTIVE=`netstat -tnpa | grep 'tcp.*:111.*ESTABLISHED.*' | wc -l`
-      SMB_ACTIVE=`netstat -tnpa | grep 'tcp.*:445.*ESTABLISHED.*' | wc -l`
+      SSH_ACTIVE=`netstat -tnpa | grep 'tcp.*:22[[:blank:]].*ESTABLISHED.*' | wc -l`
+      NFS_ACTIVE=`netstat -tnpa | grep 'tcp.*:111[[:blank:]].*ESTABLISHED.*' | wc -l`
+      SMB_ACTIVE=`netstat -tnpa | grep 'tcp.*:445[[:blank:]].*ESTABLISHED.*' | wc -l`
       [ $SSH_ACTIVE -gt 0 -o $NFS_ACTIVE -gt 0 -o $SMB_ACTIVE -gt 0 ] && IDLE_SHUTDOWN_ALLOWED=0 && TYPE="NETWORK"
     fi
 
@@ -53,6 +53,9 @@ while true; do
         logger -t prevent_idle.sh "Prevent Idle Shutdown ($TYPE)"
       fi
     fi
+  else
+    # reset if kodi was restarted
+    IDLE_SHUTDOWN_ALLOWED_LAST_STATE=-1
   fi
   sleep 60
 done

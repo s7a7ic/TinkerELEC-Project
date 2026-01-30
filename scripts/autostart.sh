@@ -1,13 +1,14 @@
 #!/bin/sh
 # The autostart.sh script runs on system boot
 
-. $HOME/.profile # load user defined environment variables
+. $HOME/.profile
 . ${SCRIPTS_PATH:-.}/functions.sh
 
 # disable internal LEDs
-echo none > /sys/class/leds/led-0/trigger
-echo none > /sys/class/leds/led-1/trigger
-echo none > /sys/class/leds/led-2/trigger
+echo none | tee /sys/class/leds/led-?/trigger > /dev/null
+
+# enable bfq scheduler for emmc/sdcard
+#echo bfq | tee /sys/block/mmcblk?/queue/scheduler > /dev/null
 
 # wait for kodi to start in background
 (
@@ -26,15 +27,11 @@ echo none > /sys/class/leds/led-2/trigger
 
 # run prevent_idle in background
 if [ -f ${SCRIPTS_PATH:-.}/prevent_idle.sh ]; then
-  (
-  sh ${SCRIPTS_PATH:-.}/prevent_idle.sh
-  )&
+  sh ${SCRIPTS_PATH:-.}/prevent_idle.sh &
 fi
 
 # run irexec for scripts via ir-remote
 [ -f /storage/.config/lircrc ] && irexec -d /storage/.config/lircrc
 
 wait_for_network
-
-# turn tv on
-curl ${CURL_OPT} -d 'state=on' ${CURL_URL}/tv
+power_tv "on"

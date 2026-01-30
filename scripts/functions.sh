@@ -43,3 +43,7 @@ wait_for_network() {
     sleep 1
   done
 }
+
+power_tv() {
+  [ "$1" = "on" ] || [ "$1" = "off" ] && curl ${CURL_OPT} -d "state=$1" ${CURL_URL}/tv
+}
