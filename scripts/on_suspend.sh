@@ -1,12 +1,11 @@
 #!/bin/sh
-# The on_suspend.sh script runs before system is going into suspend
+# /storage/.config/scripts/on_suspend.sh script runs before system is going into suspend
 
 . $HOME/.profile
 . ${SCRIPTS_PATH:-.}/functions.sh
 
 # save wakeup count; the wakeup path for gpio-keys can change, if new devices are attached
-WAKEUP_PATH=$(echo "$(grep -r gpio-keys /sys/class/wakeup/wakeup?/name)" | cut -d "/" -f 5)
-cat /sys/class/wakeup/$WAKEUP_PATH/active_count > /tmp/wakeup_btn_count
+cat /sys/devices/platform/gpio-keys/wakeup/wakeup*/active_count > /tmp/wakeup_btn_count
 
 WAKE_AT=${WAKE_AT:-"08:00"} # always wake system up at this time
 
