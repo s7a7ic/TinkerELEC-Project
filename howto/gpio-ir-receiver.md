@@ -44,7 +44,7 @@ Look into `/storage/.config/rc_maps.cfg.sample` for inspiration or my
 
 ## Override Kodi Keymap
 
-If you wish to override how some buttons are mapped in kodi, create a `remote_custom.xml` file in `/storage/.kodi/userdata/keymaps/` and restart kodi.
+If you wish to override how some buttons are mapped in Kodi, create a `remote_custom.xml` file in `/storage/.kodi/userdata/keymaps/` and restart Kodi.
 
 Example override of KEY_GREEN:
 ```xml
@@ -57,7 +57,7 @@ Example override of KEY_GREEN:
 </keymap>
 ```
 
-The defaults for remotes under kodi are defined in these files:
+The defaults for remotes under Kodi are defined in these files:
 
 - /usr/share/kodi/system/Lircmap.xml
 - /usr/share/kodi/system/keymaps/remote.xml
@@ -72,7 +72,7 @@ Also there are some eventlircd remaps for common remotes under `/etc/eventlircd.
 ## Special Keys via irexec
 
 To call custom functions like running a command or a script, you can use irexec for this.
-The functions need to be defined in the lircrc file.
+The mapping of functions to keys is defined in the lircrc file.
 
 irexec can be started as a daemon like so:
 
@@ -100,6 +100,15 @@ end
 More info on irexec:
 - https://www.lirc.org/html/irexec.html
 - https://linux.die.net/man/1/irexec
+
+### My use for the "Special Keys"
+
+The "MENU" and "TOOLS" buttons of the TV remote are mapped to KEY_F5 and irexec calls the [handle_ir.sh script](../scripts/handle_ir.sh) with the argument "inhibit".
+This loads a different keytable with the `ir-keytable` command to prevent the control of Kodi when using the TV's built-in menus.
+By pressing the "EXIT" button or after some time, the default keymap is loaded again.
+
+The "POWER" button of the TV remote is mapped to KEY_F6 in the samsung_tv_remote.toml and irexec calls the [handle_ir.sh script](../scripts/handle_ir.sh) with the argument "power".
+This sends a curl request to my home automation setup, which turns the power for the TV on (if it's not already powered).
 
 ## Other (old script): inhibit kodi ir-remote controls temporarily
 
