@@ -1,4 +1,4 @@
-# Guide: Kodi with Gamepad (8BitDo N30 Pro 2)
+# TinkerELEC 8BitDo N30 Pro 2 Gamepad Configuration
 
 I'm using Kodi with the **8BitDo N30 Pro 2 bluetooth gamepad**.
 
@@ -18,7 +18,43 @@ I'm using the dinput mode.
 
 To prevent Kodi opening "Info" or "PlayerControls" when you want to turn the gamepad off but still keep the default actions on a short press, the joystick.xml needs to be modified.
 
-Create a [custom mapping](joystick_custom.xml) in `/storage/.kodi/userdata/keymaps/` and restart kodi
+Create a joystick_custom.xml in `/storage/.kodi/userdata/keymaps/` and restart kodi
+
+```xml
+<!-- prevent action on START button for longpress, when turning gamepad off -->
+<keymap>
+  <global>
+    <joystick profile="game.controller.default">
+      <start>ActivateWindow(PlayerControls)</start>
+      <start holdtime="500">noop</start>
+    </joystick>
+  </global>
+  <FullscreenVideo>
+    <joystick profile="game.controller.default">
+      <start>Info</start>
+      <start holdtime="500">noop</start>
+    </joystick>
+  </FullscreenVideo>
+  <FullscreenLiveTV>
+    <joystick profile="game.controller.default">
+      <start>Info</start>
+      <start holdtime="500">noop</start>
+    </joystick>
+  </FullscreenLiveTV>
+  <FullscreenRadio>
+    <joystick profile="game.controller.default">
+      <start>Info</start>
+      <start holdtime="500">noop</start>
+    </joystick>
+  </FullscreenRadio>
+  <Visualisation>
+    <joystick profile="game.controller.default">
+      <start>Info</start>
+      <start holdtime="500">noop</start>
+    </joystick>
+  </Visualisation>
+</keymap>
+```
 
 ## Kodi Buttonmap / Keymap
 
@@ -31,3 +67,5 @@ For editing purposes or on other systems, the linked files need to be added into
 
 - [N30 Pro 2 dinput buttonmap](8BitDo_N30_Pro_2_16b_8a.xml)
 - [N30 Pro 2 xinput buttonmap](8BitDo_N30_Pro_2_10b_8a.xml)
+
+TODO: Point to tinkerelec-init-config package
