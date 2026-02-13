@@ -1,8 +1,0 @@
-<!-- Overwrite of KEY_TV -->
-<keymap>
-  <global>
-    <remote>
-      <mytv>ActivateWindow(TVChannels)</mytv>
-    </remote>
-  </global>
-</keymap>
