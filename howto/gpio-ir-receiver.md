@@ -2,8 +2,7 @@
 
 To use a GPIO IR Receiver on the Tinker Board S, it has to be defined in the device tree.
 I created a patch, which you can find under [packages/tinkerelec/addons/tinkerelec.nespi/patches/](https://github.com/s7a7ic/TinkerELEC/blob/master/packages/tinkerelec/addons/tinkerelec.nespi/patches/dts-rk3288-tinker-ir-receiver.patch) in the TinkerELEC sourcecode.
-The patched DTB file with changes for the ir-receiver and the nespi-case buttons can be installed or uninstalled via Kodi Addon.
-(TODO: Addon link and description)
+The patched DTB file with changes for the ir-receiver and the nespi-case buttons can be installed or uninstalled via [Kodi Addon](https://github.com/s7a7ic/TinkerELEC/blob/master/packages/tinkerelec/addons/tinkerelec.nespi).
 
 The IR Receiver I used is the `TSOP31236` and it's connected to GND, 3.3V and PIN 21 on the GPIO header.
 
@@ -18,7 +17,7 @@ The IR Receiver I used is the `TSOP31236` and it's connected to GND, 3.3V and PI
 
 ## Guide on configuration
 
-The `ir-keytable` command is used to find out which protocol the tv-remote uses and which ir-codes it sends.
+The `ir-keytable` command is helpful to find out which protocol the tv-remote uses and which ir-codes it sends.
 
 To do this, run the following command and press any button on the tv-remote:
 
@@ -34,18 +33,18 @@ ir-keytable -p nec -t
 
 Now you can press the buttons you like to map on the ir-remote and note the codes to create a keymap.
 
-For an example, you can look at the [`samsung_tv_remote.toml`](https://github.com/s7a7ic/TinkerELEC/blob/master/packages/tinkerelec/tinkerelec-config/config/rc_keymaps/samsung_tv_remote.toml) keymap file.
+For an example, you can look at my [samsung_tv_remote.toml](https://github.com/s7a7ic/TinkerELEC/blob/master/packages/tinkerelec/tinkerelec-config/config/rc_keymaps/samsung_tv_remote.toml) keymap file.
 The toml-file needs to be placed under `/storage/.config/rc_keymaps/`.
-To load it automatically you need to edit `/storage/.config/rc_maps.cfg`.
-Look into `/storage/.config/rc_maps.cfg.sample` for inspiration or
-[rc_maps.cfg](https://github.com/s7a7ic/TinkerELEC/blob/master/packages/tinkerelec/tinkerelec-config/config/rc_maps.cfg) used by me.
+To load it automatically you need to edit `/storage/.config/rc_maps.cfg`.\
+Look into `/storage/.config/rc_maps.cfg.sample` for inspiration or my
+[rc_maps.cfg](https://github.com/s7a7ic/TinkerELEC/blob/master/packages/tinkerelec/tinkerelec-config/config/rc_maps.cfg).
 
 > [!TIP]
 > The default "GPIO IR Receiver" kernel driver name is `gpio_ir_recv`.
 
 ## Override Kodi Keymap
 
-If you wish to override how some button is mapped in kodi, create a `remote_custom.xml` file in `/storage/.kodi/userdata/keymaps/` and restart kodi.
+If you wish to override how some buttons are mapped in kodi, create a `remote_custom.xml` file in `/storage/.kodi/userdata/keymaps/` and restart kodi.
 
 Example override of KEY_GREEN:
 ```xml
@@ -63,13 +62,44 @@ The defaults for remotes under kodi are defined in these files:
 - /usr/share/kodi/system/Lircmap.xml
 - /usr/share/kodi/system/keymaps/remote.xml
 
-## List of Keycodes
+Also there are some eventlircd remaps for common remotes under `/etc/eventlircd.d/`.
+
+## List of keycodes and other helpful information
 
 - https://pickpj.github.io/keycodes.html
+- https://wiki.libreelec.tv/configuration/ir-remotes
 
 ## Special Keys via irexec
 
-TODO: describe lircrc file for custom scripts
+To call custom functions like running a command or a script, you can use irexec for this.
+The functions need to be defined in the lircrc file.
+
+irexec can be started as a daemon like so:
+
+```
+irexec -d /storage/.config/lircrc
+```
+
+I've added it in [autostart.sh](../scripts/autostart.sh) to start automatically on boot.
+
+Example of the lircrc file that I use:
+```
+begin
+  prog = irexec
+  button = KEY_F5
+  config = /storage/.config/scripts/handle_ir.sh inhibit
+end
+
+begin
+  prog = irexec
+  button = KEY_F6
+  config = /storage/.config/scripts/handle_ir.sh power
+end
+```
+
+More info on irexec:
+- https://www.lirc.org/html/irexec.html
+- https://linux.die.net/man/1/irexec
 
 ## Other (old script): inhibit kodi ir-remote controls temporarily
 
