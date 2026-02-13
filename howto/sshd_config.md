@@ -8,11 +8,13 @@ Another way would be the configuration of `SSH_ARGS` here: `/storage/.cache/serv
 
 But this file gets frequently overwritten by the `service.libreelec.settings` kodi addon.
 
-So one reliable way I found was to override the sshd.service file.
+So one reliable way I found was to override the default `sshd.service` file.
 
-To do this, you have to copy the default service file into `/storage/.config/system.d` like so:
+To do this, you have to copy the file into `/storage/.config/system.d` like so:
 
 `cp /usr/lib/systemd/system/sshd.service /storage/.config/system.d/`
+
+You can now edit this file and add the changes you wish.
 
 > [!CAUTION]
 > If you misconfigure the arguments, the sshd service won't start, so you'd lose access to the system over ssh.
@@ -25,7 +27,7 @@ Output should show something similar like this:
 
 `sshd: /usr/sbin/sshd -D -o ClientAliveInterval 120 -o ClientAliveCountMax 2 [listener] 0 of 10-100 startups`
 
-## File content of: /storage/.config/system.d/sshd.service
+## Content of: /storage/.config/system.d/sshd.service
 
 ```
 [Unit]
