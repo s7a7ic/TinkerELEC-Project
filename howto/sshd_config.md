@@ -11,8 +11,9 @@ But this file gets frequently overwritten by the `service.libreelec.settings` ko
 So one reliable way I found was to override the default `sshd.service` file.
 
 To do this, you have to copy the file into `/storage/.config/system.d` like so:
-
-`cp /usr/lib/systemd/system/sshd.service /storage/.config/system.d/`
+```sh
+cp /usr/lib/systemd/system/sshd.service /storage/.config/system.d/
+```
 
 You can now edit this file and add the changes you wish.
 
@@ -29,7 +30,7 @@ Output should show something similar like this:
 
 ## Content of: /storage/.config/system.d/sshd.service
 
-```
+```ini
 [Unit]
 Description=OpenSSH server daemon
 After=network.target

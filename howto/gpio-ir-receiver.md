@@ -8,30 +8,34 @@ The IR Receiver I used is the `TSOP31236` and it's connected to GND, 3.3V and PI
 ## Required Files
 
 - /storage/.config/rc_maps.cfg
-- /storage/.config/lircrc
 - /storage/.config/rc_keymaps/samsung_tv_remote.toml
+- /storage/.config/lircrc (for extra functions like running scripts)
 
 The files are installed by default with the ["tinkerelec-config" package](https://github.com/s7a7ic/TinkerELEC/blob/master/packages/tinkerelec/tinkerelec-config) (see the "config" directory).
 
 ## Guide on configuration
 
-The `ir-keytable` command is used to find out which protocol the ir-remote uses and which ir-codes are send.
+The `ir-keytable` command is used to find out which protocol the tv-remote uses and which ir-codes it sends.
 
-Run the following command to find out which protocol the ir-remote uses and press any key on the ir-remote:
+To do this, run the following command and press any button on the tv-remote:
 
-`ir-keytable -c -p all -t`
+```sh
+ir-keytable -c -p all -t
+```
 
-If its "nec/necx" (necx is a variant of nec) then run this command to test for inputs:
+If the protocol is "nec/necx" (necx is a variant of nec) then run this command to test for ir-codes:
 
-`ir-keytable -p nec -t`
+```sh
+ir-keytable -p nec -t
+```
 
-Now you can press the keys you like to map on the ir-remote and note the codes to create a keymap.
+Now you can press the buttons you like to map on the ir-remote and note the codes to create a keymap.
 
-For an example, you can look at the `samsung_tv_remote.toml` keyfile.
+For an example, you can look at the [`samsung_tv_remote.toml` keymap file](https://github.com/s7a7ic/TinkerELEC/blob/master/packages/tinkerelec/tinkerelec-config/config/rc_keymaps/samsung_tv_remote.toml).
 
-The keymap toml-file needs to be placed under `/storage/.config/rc_keymaps/`.
+The toml-file needs to be placed under `/storage/.config/rc_keymaps/`.
 
-To load it automaticaly you need to edit `/storage/.config/rc_maps.cfg`. Look into rc_maps.cfg.sample for inspiration.
+To load it automatically you need to edit `/storage/.config/rc_maps.cfg`. Look into rc_maps.cfg.sample for inspiration.
 
 The default "GPIO IR Receiver" kernel driver name is `gpio_ir_recv`.
 
@@ -40,7 +44,7 @@ The default "GPIO IR Receiver" kernel driver name is `gpio_ir_recv`.
 If you wish to override how some button is mapped in kodi, create a remote.xml file in `/storage/.kodi/userdata/keymaps/` and restart kodi.
 
 Example override of KEY_GREEN:
-```
+```xml
 <keymap>
   <global>
     <remote>
@@ -49,6 +53,11 @@ Example override of KEY_GREEN:
   </global>
 </keymap>
 ```
+
+The defaults for remotes under kodi are defined in these files:
+
+- /usr/share/kodi/system/Lircmap.xml
+- /usr/share/kodi/system/keymaps/remote.xml
 
 ## List of Keycodes
 
@@ -60,7 +69,7 @@ TODO: describe lircrc file for custom scripts
 
 ## Other (old script): inhibit kodi ir-remote controls temporarily
 
-```
+```sh
 kodi-send -a "Notification(TV Remote,Disabled for 60 Sec.,59000)"
 systemctl stop eventlircd
 sleep 60
