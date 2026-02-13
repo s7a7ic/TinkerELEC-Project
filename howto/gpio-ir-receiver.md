@@ -2,6 +2,8 @@
 
 To use a GPIO IR Receiver on the Tinker Board S, it has to be defined in the device tree.
 I created a patch, which you can find under [packages/tinkerelec/addons/tinkerelec.nespi/patches/](https://github.com/s7a7ic/TinkerELEC/blob/master/packages/tinkerelec/addons/tinkerelec.nespi/patches/dts-rk3288-tinker-ir-receiver.patch) in the TinkerELEC sourcecode.
+The patched DTB file with changes for the ir-receiver and the nespi-case buttons can be installed or uninstalled via Kodi Addon.
+(TODO: Addon link and description)
 
 The IR Receiver I used is the `TSOP31236` and it's connected to GND, 3.3V and PIN 21 on the GPIO header.
 
@@ -11,7 +13,8 @@ The IR Receiver I used is the `TSOP31236` and it's connected to GND, 3.3V and PI
 - /storage/.config/rc_keymaps/samsung_tv_remote.toml
 - /storage/.config/lircrc (for extra functions like running scripts)
 
-The files are installed by default with the ["tinkerelec-config" package](https://github.com/s7a7ic/TinkerELEC/blob/master/packages/tinkerelec/tinkerelec-config) (see the "config" directory).
+> [!NOTE]
+> The files are installed by default in TinkerELEC with the ["tinkerelec-config" package](https://github.com/s7a7ic/TinkerELEC/blob/master/packages/tinkerelec/tinkerelec-config) (see the "config" directory).
 
 ## Guide on configuration
 
@@ -31,17 +34,18 @@ ir-keytable -p nec -t
 
 Now you can press the buttons you like to map on the ir-remote and note the codes to create a keymap.
 
-For an example, you can look at the [`samsung_tv_remote.toml` keymap file](https://github.com/s7a7ic/TinkerELEC/blob/master/packages/tinkerelec/tinkerelec-config/config/rc_keymaps/samsung_tv_remote.toml).
-
+For an example, you can look at the [`samsung_tv_remote.toml`](https://github.com/s7a7ic/TinkerELEC/blob/master/packages/tinkerelec/tinkerelec-config/config/rc_keymaps/samsung_tv_remote.toml) keymap file.
 The toml-file needs to be placed under `/storage/.config/rc_keymaps/`.
+To load it automatically you need to edit `/storage/.config/rc_maps.cfg`.
+Look into `/storage/.config/rc_maps.cfg.sample` for inspiration or
+[rc_maps.cfg](https://github.com/s7a7ic/TinkerELEC/blob/master/packages/tinkerelec/tinkerelec-config/config/rc_maps.cfg) used by me.
 
-To load it automatically you need to edit `/storage/.config/rc_maps.cfg`. Look into rc_maps.cfg.sample for inspiration.
+> [!TIP]
+> The default "GPIO IR Receiver" kernel driver name is `gpio_ir_recv`.
 
-The default "GPIO IR Receiver" kernel driver name is `gpio_ir_recv`.
+## Override Kodi Keymap
 
-## Overwrite kodi keymapping
-
-If you wish to override how some button is mapped in kodi, create a remote.xml file in `/storage/.kodi/userdata/keymaps/` and restart kodi.
+If you wish to override how some button is mapped in kodi, create a `remote_custom.xml` file in `/storage/.kodi/userdata/keymaps/` and restart kodi.
 
 Example override of KEY_GREEN:
 ```xml
