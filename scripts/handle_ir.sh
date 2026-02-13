@@ -9,20 +9,22 @@ case $1 in
 
   inhibit)
     # load a different keytable to inhibit kodi menu controls
+    INHIBIT_TIME=240 # in seconds
     if [ -e /tmp/remote_alt ]; then
       ir-keytable -c -w /storage/.config/rc_keymaps/samsung_tv_remote.toml
       kodi-send -a "Notification(TV Remote,Full Control,2000)"
       rm /tmp/remote_alt
     else
       ir-keytable -c -w /storage/.config/rc_keymaps/samsung_tv_remote_alt.toml
-      kodi-send -a "Notification(TV Remote,Limited Control - Press EXIT,5000)"
+      kodi-send -a "Notification(TV Remote,Limited Control - Press EXIT,${INHIBIT_TIME}000)"
       echo "yes" > /tmp/remote_alt
       if [ ! -e /tmp/remote_timer ]; then
         (
           echo "running" > /tmp/remote_timer
-          # load default layout after 240 seconds if not already disabled
-          sleep 240
+          # load default layout after "INHIBIT_TIME" if not already happend by pressing EXIT
+          sleep ${INHIBIT_TIME}
           if [ -e /tmp/remote_alt ]; then
+            sleep 1
             ir-keytable -c -w /storage/.config/rc_keymaps/samsung_tv_remote.toml
             kodi-send -a "Notification(TV Remote,Full Control,2000)"
             rm /tmp/remote_alt
