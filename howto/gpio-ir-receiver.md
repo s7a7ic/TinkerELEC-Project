@@ -71,10 +71,9 @@ Also there are some eventlircd remaps for common remotes under `/etc/eventlircd.
 
 ## Special Keys via irexec
 
-To call custom functions like running a command or a script, you can use irexec for this.
-The mapping of functions to keys is defined in the lircrc file.
-
-irexec can be started as a daemon like so:
+To call custom functions like running a command or a script, you can use `irexec` for this.
+The mapping of functions to keys is defined in the `lircrc` file.
+`irexec` can be started as a daemon like so:
 
 ```
 irexec -d /storage/.config/lircrc
@@ -101,13 +100,13 @@ More info on irexec:
 - https://www.lirc.org/html/irexec.html
 - https://linux.die.net/man/1/irexec
 
-### My use for the "Special Keys"
+## My use for the "Special Keys"
 
-The "MENU" and "TOOLS" buttons of the TV remote are mapped to KEY_F5 and irexec calls the [handle_ir.sh script](../scripts/handle_ir.sh) with the argument "inhibit".
+The "MENU" and "TOOLS" buttons of the TV remote are mapped to `KEY_F5` and irexec calls the [handle_ir.sh script](../scripts/handle_ir.sh) with the argument "inhibit".
 This loads a different keytable with the `ir-keytable` command to prevent the control of Kodi when using the TV's built-in menus.
 By pressing the "EXIT" button or after some time, the default keymap is loaded again.
 
-The "POWER" button of the TV remote is mapped to KEY_F6 in the samsung_tv_remote.toml and irexec calls the [handle_ir.sh script](../scripts/handle_ir.sh) with the argument "power".
+The "POWER" button of the TV remote is mapped to `KEY_F6` and irexec calls the [handle_ir.sh script](../scripts/handle_ir.sh) with the argument "power".
 This sends a curl request to my home automation setup, which turns the power for the TV on (if it's not already powered).
 
 ## Other (old script): inhibit kodi ir-remote controls temporarily
