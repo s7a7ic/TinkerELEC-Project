@@ -6,11 +6,10 @@ The patched DTB file with changes for the ir-receiver and the nespi-case buttons
 
 The IR Receiver I used is the `TSOP31236` and it's connected to GND, 3.3V and PIN 21 on the GPIO header.
 
-## Required Files
+## Required files
 
 - /storage/.config/rc_maps.cfg
 - /storage/.config/rc_keymaps/samsung_tv_remote.toml
-- /storage/.config/lircrc (for extra functions like running scripts)
 
 > [!NOTE]
 > The files are installed by default in TinkerELEC with the ["tinkerelec-config" package](https://github.com/s7a7ic/TinkerELEC/blob/master/packages/tinkerelec/tinkerelec-config) (see the "config" directory).
@@ -42,7 +41,7 @@ Look into `/storage/.config/rc_maps.cfg.sample` for inspiration or my
 > [!TIP]
 > The default "GPIO IR Receiver" kernel driver name is `gpio_ir_recv`.
 
-## Override Kodi Keymap
+## Kodi keymap override
 
 If you wish to override how some buttons are mapped in Kodi, create a `remote_custom.xml` file in `/storage/.kodi/userdata/keymaps/` and restart Kodi.
 
@@ -64,24 +63,39 @@ The defaults for remotes under Kodi are defined in these files:
 
 Also there are some eventlircd remaps for common remotes under `/etc/eventlircd.d/`.
 
+> [!HINT]
+> `eventlircd` service was removed in LibreELEC 13
+
 ## List of keycodes and other helpful information
 
 - https://pickpj.github.io/keycodes.html
 - https://wiki.libreelec.tv/configuration/ir-remotes
 
-## Special Keys via irexec
+## "Special Keys" with Kodi keymap override
 
-To call custom functions like running a command or a script, you can use `irexec` for this.
+This is an example how to map custom commands or scripts in a Kodi keymap `/storage/.kodi/userdata/keymaps/special_keys.xml`:
+```xml
+<keymap>
+  <global>
+    <keyboard>
+      <f5>System.Exec(/storage/.config/scripts/handle_ir_inhibit.sh)</f5>
+      <f6>System.Exec(/storage/.config/scripts/handle_ir_power.sh)</f6>
+      <f7>Info</f7>
+      <f7 mod="longpress">PlayerProcessInfo</f7>
+    </keyboard>
+  </global>
+</keymap>
+```
+
+> [!HINT]
+> The Kodi builtin `System.Exec()` function does not support parameters
+
+## "Special Keys" with irexec (pre LibreELEC 13)
+
+If you have `eventlircd` installed, you can use `irexec` to call custom functions like running a command or a script.
 The mapping of functions to keys is defined in the `lircrc` file.
-`irexec` can be started as a daemon like so:
 
-```
-irexec -d /storage/.config/lircrc
-```
-
-I've added it in [autostart.sh](../scripts/autostart.sh) to start automatically on boot.
-
-Example of the lircrc file that I use:
+`lircrc` file example:
 ```
 begin
   prog = irexec
@@ -96,20 +110,29 @@ begin
 end
 ```
 
+`irexec` can be started as a daemon (from autostart.sh) like so:
+
+```sh
+irexec -d /storage/.config/lircrc
+```
+
 More info on irexec:
 - https://www.lirc.org/html/irexec.html
 - https://linux.die.net/man/1/irexec
 
 ## My use for the "Special Keys"
 
-The "MENU" and "TOOLS" buttons of the TV remote are mapped to `KEY_F5` and irexec calls the [handle_ir.sh script](../scripts/handle_ir.sh) with the argument "inhibit".
-This loads a different keytable with the `ir-keytable` command to prevent the control of Kodi when using the TV's built-in menus.
+The "MENU", "TOOLS", "SOURCE" and similar buttons of the TV remote are mapped to `KEY_F5` which calls the [handle_ir.sh script](../scripts/handle_ir.sh) with the argument "inhibit".
+This script loads a different keytable with the `ir-keytable` command to prevent the control of Kodi when using the TV's built-in menus.
 By pressing the "EXIT" button or after some time, the default keymap is loaded again.
 
-The "POWER" button of the TV remote is mapped to `KEY_F6` and irexec calls the [handle_ir.sh script](../scripts/handle_ir.sh) with the argument "power".
+The "POWER" button of the TV remote is mapped to `KEY_F6` which calls the [handle_ir.sh script](../scripts/handle_ir.sh) with the argument "power".
 This sends a curl request to my home automation setup, which turns the power for the TV on (if it's not already powered).
 
-## Other (old script): inhibit kodi ir-remote controls temporarily
+## Archived script: inhibit Kodi ir-remote controls temporarily
+
+This is the first script that I used for inhibiting controls.
+I've replaced it with a better working solution, which temporarily loads a different keytable for the TV remote.
 
 ```sh
 kodi-send -a "Notification(TV Remote,Disabled for 60 Sec.,59000)"
