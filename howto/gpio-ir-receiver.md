@@ -63,7 +63,7 @@ The defaults for remotes under Kodi are defined in these files:
 
 Also there are some eventlircd remaps for common remotes under `/etc/eventlircd.d/`.
 
-> [!HINT]
+> [!NOTE]
 > `eventlircd` service was removed in LibreELEC 13
 
 ## List of keycodes and other helpful information
@@ -87,7 +87,7 @@ This is an example how to map custom commands or scripts in a Kodi keymap `/stor
 </keymap>
 ```
 
-> [!HINT]
+> [!NOTE]
 > The Kodi builtin `System.Exec()` function does not support parameters
 
 ## "Special Keys" with irexec (pre LibreELEC 13)
