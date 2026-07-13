@@ -1,0 +1,15 @@
+export SCRIPTS_PATH="/storage/.config/scripts"
+export CURL_URL="${curl_url}"
+export CURL_OPT="--connect-timeout 3 --retry 0 --no-keepalive --insecure --silent"
+
+# disable ASH history file on storage
+export HISTFILE=${histfile}
+
+# always wake system up at this time
+export WAKE_AT="${wake_time}"
+
+# host to ping while waiting for network
+export PING_HOST=${ping_host}
+
+# how long to inhibit tv remote commands in seconds
+export INHIBIT_TIME=${inhibit_seconds}
