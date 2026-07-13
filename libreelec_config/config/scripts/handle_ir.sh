@@ -6,35 +6,35 @@
 
 case $PARAM in
   power)
-    curl ${CURL_OPT} -d state=on ${CURL_URL}/tv
-    kodi-send -a "FullScreen" # workarround: wakes kodi if in idle
-    ;;
+    curl ${CURL_OPT} -d state=on ${CURL_URL}/tv > /dev/null
+    kodi-send -a "FullScreen" > /dev/null # workarround: wakes kodi if in idle
+  ;;
 
   inhibit)
     # load a different keytable to inhibit kodi menu controls
-    INHIBIT_TIME=240 # in seconds
+    INHIBIT_TIME=${INHIBIT_TIME:-240} # in seconds
     if [ -e /tmp/remote_alt ]; then
-      ir-keytable -c -w /storage/.config/rc_keymaps/samsung_tv_remote.toml
-      kodi-send -a "Notification(TV Remote,Full Control,2000)"
+      ir-keytable -c -w /storage/.config/rc_keymaps/samsung_tv_remote.toml > /dev/null
+      kodi-send -a "Notification(TV Remote,Full Control,2000)" > /dev/null
       rm /tmp/remote_alt
     else
-      ir-keytable -c -w /storage/.config/rc_keymaps/samsung_tv_remote_alt.toml
-      kodi-send -a "Notification(TV Remote,Limited Control - Press EXIT,${INHIBIT_TIME}000)"
-      echo "yes" > /tmp/remote_alt
+      ir-keytable -c -w /storage/.config/rc_keymaps/samsung_tv_remote_alt.toml > /dev/null
+      kodi-send -a "Notification(TV Remote,Limited Control - Press EXIT,${INHIBIT_TIME}000)" > /dev/null
+      touch /tmp/remote_alt
       if [ ! -e /tmp/remote_timer ]; then
         (
-          echo "running" > /tmp/remote_timer
+          touch /tmp/remote_timer
           # load default layout after "INHIBIT_TIME" if not already happend by pressing EXIT
           sleep ${INHIBIT_TIME}
           if [ -e /tmp/remote_alt ]; then
             sleep 1
-            ir-keytable -c -w /storage/.config/rc_keymaps/samsung_tv_remote.toml
-            kodi-send -a "Notification(TV Remote,Full Control,2000)"
+            ir-keytable -c -w /storage/.config/rc_keymaps/samsung_tv_remote.toml > /dev/null
+            kodi-send -a "Notification(TV Remote,Full Control,2000)" > /dev/null
             rm /tmp/remote_alt
           fi
           rm /tmp/remote_timer
         )&
       fi
     fi
-    ;;
+  ;;
 esac
