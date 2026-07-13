@@ -14,9 +14,7 @@ if [ -f /sys/class/rtc/rtc0/wakealarm ]; then
   WAKE_TIME=$(date +%s -d "$WAKE_AT") # convert to epoch time
 
   # update wake time to next day when already passed
-  if [ $CURRENT_TIME -gt $WAKE_TIME ]; then
-    WAKE_TIME=$(($WAKE_TIME + 24 * 60 * 60))
-  fi
+  [ $CURRENT_TIME -gt $WAKE_TIME ] && WAKE_TIME=$(($WAKE_TIME + 24 * 60 * 60))
 
   # get home-assistant next wake alert time
   curlwithcode ${CURL_URL}/wake_time

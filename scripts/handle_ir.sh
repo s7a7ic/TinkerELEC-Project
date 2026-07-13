@@ -5,6 +5,7 @@
 case $1 in
   power)
     curl ${CURL_OPT} -d state=on ${CURL_URL}/tv
+    kodi-send -a "FullScreen" # workarround: wakes kodi if in idle
     ;;
 
   inhibit)
