@@ -2,7 +2,7 @@
 
 I wanted to set `ClientAliveInterval` and `ClientAliveCountMax` for sshd and this is the way I did it.
 
-You normally would edit `/etc/ssh/sshd_config`, but on TinkerELEC / LibreELEC this is a read only system file.
+You normally would edit `/etc/ssh/sshd_config`, but on LibreELEC this is a read only system file.
 
 Another way would be the configuration of `SSH_ARGS` here: `/storage/.cache/services/sshd.conf`
 
@@ -28,23 +28,4 @@ Output should show something similar like this:
 
 `sshd: /usr/sbin/sshd -D -o ClientAliveInterval 120 -o ClientAliveCountMax 2 [listener] 0 of 10-100 startups`
 
-## Content of: /storage/.config/system.d/sshd.service
-
-```ini
-[Unit]
-Description=OpenSSH server daemon
-After=network.target
-
-[Service]
-Restart=on-failure
-EnvironmentFile=-/storage/.cache/services/sshd.conf
-ExecStartPre=/usr/bin/ssh-keygen -A
-ExecStart=/usr/sbin/sshd -D -o 'ClientAliveInterval 120' -o 'ClientAliveCountMax 2' $SSH_ARGS
-ExecReload=/bin/kill -HUP $MAINPID
-TimeoutStopSec=1s
-RestartSec=2
-StartLimitInterval=0
-
-[Install]
-WantedBy=multi-user.target
-```
+[Click here](libreelec_config/config/system.d/sshd.service) to see the `sshd.service` file that I use.
