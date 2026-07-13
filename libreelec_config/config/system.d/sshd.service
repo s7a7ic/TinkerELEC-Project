@@ -1,0 +1,16 @@
+[Unit]
+Description=OpenSSH server daemon
+After=network.target
+
+[Service]
+Restart=on-failure
+EnvironmentFile=-/storage/.cache/services/sshd.conf
+ExecStartPre=/usr/bin/ssh-keygen -A
+ExecStart=/usr/sbin/sshd -D -o 'ClientAliveInterval 120' -o 'ClientAliveCountMax 2' $SSH_ARGS
+ExecReload=/bin/kill -HUP $MAINPID
+TimeoutStopSec=1s
+RestartSec=2
+StartLimitInterval=0
+
+[Install]
+WantedBy=multi-user.target
