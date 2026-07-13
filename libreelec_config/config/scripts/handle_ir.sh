@@ -2,7 +2,9 @@
 
 . $HOME/.profile # load user defined environment variables
 
-case $1 in
+[ ! -z $1 ] && PARAM=$1 || PARAM=$(basename $0)
+
+case $PARAM in
   power)
     curl ${CURL_OPT} -d state=on ${CURL_URL}/tv
     kodi-send -a "FullScreen" # workarround: wakes kodi if in idle

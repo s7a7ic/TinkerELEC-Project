@@ -1,0 +1,14 @@
+<!--
+  Kodi 22 / LibreELEC 13: some special keys mapping for the TV remote
+  Note: builtin function "System.Exec" does not support parameters
+-->
+<keymap>
+  <global>
+    <keyboard>
+      <f5>System.Exec(/storage/.config/handle_ir/inhibit)</f5>
+      <f6>System.Exec(/storage/.config/handle_ir/power)</f6>
+      <f7>Info</f7>
+      <f7 mod="longpress">PlayerProcessInfo</f7>
+    </keyboard>
+  </global>
+</keymap>
