@@ -19,6 +19,6 @@ echo none | tee /sys/class/leds/led-?/trigger > /dev/null
 wait_for_network
 
 # trigger home assistant update_entity
-curl ${CURL_OPT} -d 'id=media_player.tinkerelec' ${CURL_URL}/update_entity
+curl ${CURL_OPT} -d 'id=media_player.tinkerelec' ${CURL_URL}/update_entity > /dev/null
 
 power_tv "on"

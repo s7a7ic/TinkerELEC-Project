@@ -45,5 +45,5 @@ wait_for_network() {
 }
 
 power_tv() {
-  [ "$1" = "on" ] || [ "$1" = "off" ] && curl ${CURL_OPT} -d "state=$1" ${CURL_URL}/tv
+  [ "$1" = "on" ] || [ "$1" = "off" ] && curl ${CURL_OPT} -d "state=$1" ${CURL_URL}/tv > /dev/null
 }
