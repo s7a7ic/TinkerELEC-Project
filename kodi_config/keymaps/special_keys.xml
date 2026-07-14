@@ -1,6 +1,7 @@
 <!--
   Kodi 22 / LibreELEC 13: some special keys mapping for the TV remote
   Note: builtin function "System.Exec" does not support parameters
+  script.tinkerelec.config addon creates the softlinks inside handle_ir dir
 -->
 <keymap>
   <global>
