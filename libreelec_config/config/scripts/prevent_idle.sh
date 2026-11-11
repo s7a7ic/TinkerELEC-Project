@@ -5,19 +5,21 @@
 # network connection is established (ssh, nfs or smb) and between specified times.
 # The shutdown function of kodi can be configured under "System / Power Saving".
 
-ENABLE_NET=1 # prevent on ssh, nfs or smb activity
+. /etc/profile
 
-TIME_1_ENABLED=1
-TIME_1_FROM="06:00"
-TIME_1_UNTIL="09:45"
+ENABLE_NET=${ENABLE_IDLE_NET:-1} # prevent on ssh, nfs or smb activity
 
-TIME_2_ENABLED=0
-TIME_2_FROM="16:00"
-TIME_2_UNTIL="18:00"
+TIME_1_ENABLED=${TIME_1_ENABLED:-0}
+TIME_1_FROM=${TIME_1_FROM:-"06:00"}
+TIME_1_UNTIL=${TIME_1_UNTIL:-"09:45"}
 
-TIME_3_ENABLED=1
-TIME_3_FROM="22:00"
-TIME_3_UNTIL="23:50"
+TIME_2_ENABLED=${TIME_2_ENABLED:-0}
+TIME_2_FROM=${TIME_2_FROM:-"16:00"}
+TIME_2_UNTIL=${TIME_2_UNTIL:-"18:00"}
+
+TIME_3_ENABLED=${TIME_3_ENABLED:-0}
+TIME_3_FROM=${TIME_3_FROM:-"22:00"}
+TIME_3_UNTIL=${TIME_3_UNTIL:-"23:50"}
 
 IDLE_SHUTDOWN_ALLOWED_LAST_STATE=-1
 

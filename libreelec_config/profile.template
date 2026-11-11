@@ -15,3 +15,15 @@ export PING_HOST=${ping_host}
 
 # how long to inhibit tv remote commands in seconds
 export INHIBIT_TIME=${inhibit_seconds}
+
+# prevent idle configuration
+export ENABLE_IDLE_NET=${idle_net}
+export TIME_1_ENABLED=${time_1_enabled}
+export TIME_1_FROM="${time_1_from}"
+export TIME_1_UNTIL="${time_1_until}"
+export TIME_2_ENABLED=${time_2_enabled}
+export TIME_2_FROM="${time_2_from}"
+export TIME_2_UNTIL="${time_2_until}"
+export TIME_3_ENABLED=${time_3_enabled}
+export TIME_3_FROM="${time_3_from}"
+export TIME_3_UNTIL="${time_3_until}"
