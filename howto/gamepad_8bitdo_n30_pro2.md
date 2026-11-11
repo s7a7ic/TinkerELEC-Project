@@ -1,4 +1,4 @@
-# LibreELEC 8BitDo N30 Pro 2 Gamepad Configuration
+# 8BitDo N30 Pro 2 gamepad configuration for Kodi
 
 I'm using the **8BitDo N30 Pro 2 bluetooth gamepad** in Kodi mostly for retro gaming.
 
@@ -7,27 +7,29 @@ The gamepad can be used in different modes by holding a letter button (A, B, X, 
 - X + START -> xinput
 - B + START -> dinput (**I'm using this mode**)
 - A + START -> macOS (Kodi detects it as "PlayStation DualShock 2" by the name "Wireless Controller")
-- Y + START -> switch (for use on Nintendo Switch)
+- Y + START -> switch (for use on the Nintendo Switch)
 
 > [!NOTE]
-> To turn the gamepad OFF just hold the START button for some seconds.
+> To turn the gamepad **OFF** just hold the START button for some seconds.
+
+??? [udev rule for Retroarch](../libreelec_config/config/udev.rules.d/99-8bitdo-bluetooth-controller.rules)
 
 ## Kodi Joystick Buttonmap
 
-The default buttonmap files are under `/usr/share/kodi/addons/peripheral.joystick/resources/buttonmaps/xml/linux/`.
+The default button map files are under `/usr/share/kodi/addons/peripheral.joystick/resources/buttonmaps/xml/linux/`.
 
-For editing purposes or changes, a buttonmap file needs to be added into this folder:
+For editing purposes or changes, a button map file needs to be added into this folder:
 ```
 /storage/.kodi/userdata/addon_data/peripheral.joystick/resources/buttonmaps/xml/linux
 ```
 
-Here you can find the buttonfiles that I use:
-- [N30 Pro 2 dinput buttonmap](../kodi_config/buttonmaps/8BitDo_N30_Pro_2_16b_8a.xml)
-- [N30 Pro 2 xinput buttonmap](../kodi_config/buttonmaps/8BitDo_N30_Pro_2_10b_8a.xml)
+Here you can find the "button map" files that I use:
+- [N30 Pro 2 dinput](../kodi_config/buttonmaps/8BitDo_N30_Pro_2_16b_8a.xml)
+- [N30 Pro 2 xinput](../kodi_config/buttonmaps/8BitDo_N30_Pro_2_10b_8a.xml)
 
 ## Prevent Kodi from opening menus when turning the gamepad off
 
-To prevent Kodi opening "Info" or "PlayerControls" when you want to turn the gamepad off (longpress), the default actions from the file `/usr/share/kodi/system/keymaps/joystick.xml` need to be overridden.
+To prevent Kodi opening "Info" or "PlayerControls" when you want to turn the gamepad off (long press), you have to override the default actions from `/usr/share/kodi/system/keymaps/joystick.xml`.
 
 Create the following [`joystick_custom.xml`](../kodi_config/keymaps/joystick_custom.xml) file under `/storage/.kodi/userdata/keymaps/` and restart Kodi.
 

@@ -1,18 +1,15 @@
 # GPIO Infrared Receiver
 
 To use a GPIO IR Receiver on the Tinker Board S, it has to be defined in the device tree.
-I created a patch, which you can find under [packages/tinkerelec/addons/tinkerelec.nespi/patches/](https://github.com/s7a7ic/TinkerELEC/blob/master/packages/tinkerelec/addons/tinkerelec.nespi/patches/dts-rk3288-tinker-ir-receiver.patch) in the TinkerELEC sourcecode.
-The patched DTB file with changes for the ir-receiver and the nespi-case buttons can be installed or uninstalled via [Kodi Addon](https://github.com/s7a7ic/TinkerELEC/blob/master/packages/tinkerelec/addons/tinkerelec.nespi).
+I created a patch, which you can find under [packages/tinkerelec/tinkerelec-nespi-dtb/patches/](https://github.com/s7a7ic/TinkerELEC/blob/master/packages/tinkerelec/tinkerelec-nespi-dtb/patches/dts-rk3288-tinker-ir-receiver.patch) in the TinkerELEC sourcecode.
+To install, update or remove the patched DTB file I use the [tinkerelec.config Kodi Addon](https://github.com/s7a7ic/TinkerELEC/blob/master/packages/tinkerelec/addons/tinkerelec.config).
 
 The IR Receiver I used is the `TSOP31236` and it's connected to GND, 3.3V and PIN 21 on the GPIO header.
 
 ## Required files
 
-- /storage/.config/rc_maps.cfg
-- /storage/.config/rc_keymaps/samsung_tv_remote.toml
-
-> [!NOTE]
-> The files are installed by default in TinkerELEC with the ["tinkerelec-config" package](https://github.com/s7a7ic/TinkerELEC/blob/master/packages/tinkerelec/tinkerelec-config) (see the "config" directory).
+- [/storage/.config/rc_maps.cfg](../libreelec_config/config/rc_maps.cfg)
+- [/storage/.config/rc_keymaps/samsung_tv_remote.toml](../libreelec_config/config/rc_keymaps/samsung_tv_remote.toml)
 
 ## Guide on configuration
 
@@ -32,11 +29,11 @@ ir-keytable -p nec -t
 
 Now you can press the buttons you like to map on the ir-remote and note the codes to create a keymap.
 
-For an example, you can look at my [samsung_tv_remote.toml](https://github.com/s7a7ic/TinkerELEC/blob/master/packages/tinkerelec/tinkerelec-config/config/rc_keymaps/samsung_tv_remote.toml) keymap file.
+For an example, you can look at my [samsung_tv_remote.toml](../libreelec_config/config/rc_keymaps/samsung_tv_remote.toml) keymap file.
 The toml-file needs to be placed under `/storage/.config/rc_keymaps/`.
 To load it automatically you need to edit `/storage/.config/rc_maps.cfg`.\
 Look into `/storage/.config/rc_maps.cfg.sample` for inspiration or my
-[rc_maps.cfg](https://github.com/s7a7ic/TinkerELEC/blob/master/packages/tinkerelec/tinkerelec-config/config/rc_maps.cfg).
+[rc_maps.cfg](../libreelec_config/config/rc_maps.cfg).
 
 > [!TIP]
 > The default "GPIO IR Receiver" kernel driver name is `gpio_ir_recv`.
