@@ -7,7 +7,9 @@
 case $PARAM in
   power)
     curl ${CURL_OPT} -d state=on ${CURL_URL}/tv > /dev/null
-    kodi-send -a "FullScreen" > /dev/null # workarround: wakes kodi if in idle
+    kodi-send -a "FullScreen" > /dev/null # wakes kodi if in idle
+    sleep 1
+    kodi-send -a "Stop" > /dev/null # stop playback
   ;;
 
   inhibit)

@@ -1,3 +1,5 @@
+# managed by script.tinkerelec.config addon
+
 export SCRIPTS_PATH="/storage/.config/scripts"
 export CURL_URL="${curl_url}"
 export CURL_OPT="--connect-timeout 3 --retry 0 --no-keepalive --insecure --silent"
