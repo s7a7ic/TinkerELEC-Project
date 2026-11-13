@@ -1,8 +1,8 @@
 #!/bin/sh
 # /storage/.config/scripts/on_suspend.sh script runs before system is going into suspend
 
-. $HOME/.profile
-. ${SCRIPTS_PATH:-.}/functions.sh
+. "$HOME/.profile"
+. "${SCRIPTS_PATH:-.}/functions.sh"
 
 # save wakeup count; the wakeup path for gpio-keys can change, if new devices are attached
 cat /sys/devices/platform/gpio-keys/wakeup/wakeup*/active_count > /tmp/wakeup_btn_count
@@ -17,7 +17,7 @@ if [ -f /sys/class/rtc/rtc0/wakealarm ]; then
   [ $CURRENT_TIME -gt $WAKE_TIME ] && WAKE_TIME=$(($WAKE_TIME + 24 * 60 * 60))
 
   # get home-assistant next wake alert time
-  curlwithcode ${CURL_URL}/wake_time
+  curlwithcode "${CURL_URL}/wake_time"
   if [ "$body" != "null" ] && [ "$body" != "off" ]; then
     body=$(($body - 60)) # minus one minute to let system fully start up
     # if wake time is before default wake, then use it
@@ -28,7 +28,7 @@ if [ -f /sys/class/rtc/rtc0/wakealarm ]; then
   WAKE_ALARM=$(cat /sys/class/rtc/rtc0/wakealarm)
 
   # update wakealarm if empty or different (check with `cat /proc/driver/rtc`)
-  if [ -z $WAKE_ALARM ] || [ 1$WAKE_ALARM != 1$WAKE_TIME ]; then
+  if [ -z "$WAKE_ALARM" ] || [ "$WAKE_ALARM" != "$WAKE_TIME" ]; then
     echo 0 > /sys/class/rtc/rtc0/wakealarm
     echo $WAKE_TIME > /sys/class/rtc/rtc0/wakealarm
     logger -t rtcwake.sh "rtc: set wakealarm to $(date -d @$WAKE_TIME)"
@@ -37,4 +37,4 @@ fi
 
 # disconnect bluetooth devices and turn tv off
 bt_disconnect
-power_tv "off"
+power_tv off
