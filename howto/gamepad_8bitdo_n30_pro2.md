@@ -12,7 +12,7 @@ The gamepad can be used in different modes by holding a letter button (A, B, X, 
 > [!NOTE]
 > To turn the gamepad **OFF** just hold the START button for some seconds.
 
-??? [udev rule for Retroarch](../libreelec_config/config/udev.rules.d/99-8bitdo-bluetooth-controller.rules)
+I'm using an [udev rule](../libreelec_config/config/udev.rules.d/99-8bitdo-bluetooth-controller.rules) for better device detection (especially for Retroarch).
 
 ## Kodi Joystick Buttonmap
 
